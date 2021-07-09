@@ -23,9 +23,13 @@ https://cyclades.ac-nancy-metz.fr/publication_A12/publication?filtre=cojocaru&co
 Vous l'avez peut-être remarqué mais la requête est la même ! Il y a juste l'élément filtre= qui change... Ainsi, on a juste a test tous les urls
 
 Exemple :
+
 filtre=a
+
 filtre=b
+
 filtre=c
+
 ...
 
 4) Comment créer un fichier .cvs ?
@@ -33,7 +37,11 @@ filtre=c
 Pour créer un fichier cvs, c'est vraiment super simple : on écrit ce qu'on veut dans une case puis, pour passer à la case suivante, on met une virgule
 
 Exemple :
+
 Nom,Prénom,Age
+
 Kremer,Mathis,15
+
 Di Martino, Viktoria, 15
+
 Brandenbourger,louise,15
