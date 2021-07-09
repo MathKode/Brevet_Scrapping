@@ -5,9 +5,11 @@ Un petit code util si on veut créer un tableau .csv de toutes les personnes qui
 1) Comment fonctionne le code ?
 
 Ce code fonctionne d'une façon très simple : il va rechercher sur le site de l'académie concerné tout les noms des candidats (brut force)
+
 2) Comment faire le brute force ?
 
 Pour cette question, je vous renvois vers un de mes repesitorys "Brute_Force"
+
 3) Comment obtenir les resultats pour un nom ?
 
 Pour ce faire, j'ai du faire un petit travail d'analyse. En effet, après avoir ouvert la console du site (dans network), j'ai remarqué qu'il envoyait toujours la même requête pour obtenir les datas :
@@ -25,6 +27,7 @@ filtre=a
 filtre=b
 filtre=c
 ...
+
 4) Comment créer un fichier .cvs ?
 
 Pour créer un fichier cvs, c'est vraiment super simple : on écrit ce qu'on veut dans une case puis, pour passer à la case suivante, on met une virgule
