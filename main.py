@@ -1,5 +1,7 @@
 import requests
 import os
+import time
+
 if "data_brevet.csv" not in os.listdir():
     file = open("data_brevet.csv",'w')
     file.write("Nom,Prénom,Mention,Homonyme")
@@ -66,45 +68,48 @@ while True:
     mot = ''.join(final)
 
     #Rechere le nom
-    r = requests.get(f'https://cyclades.ac-nancy-metz.fr/publication_A12/publication?filtre={mot}&contexte=eyJjb2RlRG9tYWluZSI6IkROQiIsImNvZGVFbnRpdGVSZXNwb25zYWJsZSI6IkExMiIsImNvZGVTZXNzaW9uIjoiMjAyMTpCOkROQi0yLjMiLCJjb2RlR3JvdXBlRGVjaXNpb24iOiIxIiwiY29kZVF1YWxpZmljYXRpb24iOm51bGwsImNvZGVDb250ZXh0ZVJlZ2xlbWVudGFpcmUiOm51bGwsImNvZGVab25lR2VvZ3JhcGhpcXVlIjpudWxsfQ%3D%3D&_=1625845265472')
-    page = r.text
-    if page == '{"results":[ ]}': 
-        print(f'None {mot}',end='\r')
-    else :
-        ls = page.split('{')
-        ls = "}".join(ls).split('}')
-        del ls[0]
-        del ls[0]
-        del ls[-1]
-        ls = "' , '".join(ls).split("' , '")
-        l = ls.copy()
-        ls = []
-        for i in l:
-            if i != "":
-                ls.append(i)
-        for candidat in ls:
-            try :
-                l = candidat.split('"nom" : ')
-                del l[0]
-                l = "".join(l).split('"')
-                name = l[1]
-                prenom = l[5]
-                result = l[9]
-                homonyme = l[12]
-                file = open("data_brevet.csv",'r')
-                tableau = file.read().split('\n')
-                file.close()
-                m = f"{name},{prenom},{result},{homonyme}"
-                if m not in tableau:
-                    tableau.append(f"{name},{prenom},{result},{homonyme}")
-                    file = open("data_brevet.csv",'w')
-                    file.write("\n".join(tableau))
+    try :
+        r = requests.get(f'https://cyclades.ac-nancy-metz.fr/publication_A12/publication?filtre={mot}&contexte=eyJjb2RlRG9tYWluZSI6IkROQiIsImNvZGVFbnRpdGVSZXNwb25zYWJsZSI6IkExMiIsImNvZGVTZXNzaW9uIjoiMjAyMTpCOkROQi0yLjMiLCJjb2RlR3JvdXBlRGVjaXNpb24iOiIxIiwiY29kZVF1YWxpZmljYXRpb24iOm51bGwsImNvZGVDb250ZXh0ZVJlZ2xlbWVudGFpcmUiOm51bGwsImNvZGVab25lR2VvZ3JhcGhpcXVlIjpudWxsfQ%3D%3D&_=1625845265472')
+        page = r.text
+        if page == '{"results":[ ]}': 
+            print(f'None {mot}',end='\r')
+        else :
+            ls = page.split('{')
+            ls = "}".join(ls).split('}')
+            del ls[0]
+            del ls[0]
+            del ls[-1]
+            ls = "' , '".join(ls).split("' , '")
+            l = ls.copy()
+            ls = []
+            for i in l:
+                if i != "":
+                    ls.append(i)
+            for candidat in ls:
+                try :
+                    l = candidat.split('"nom" : ')
+                    del l[0]
+                    l = "".join(l).split('"')
+                    name = l[1]
+                    prenom = l[5]
+                    result = l[9]
+                    homonyme = l[12]
+                    file = open("data_brevet.csv",'r')
+                    tableau = file.read().split('\n')
                     file.close()
-                    print(f"{name},{prenom},{result},{homonyme}")
-                else :
-                    print(f"{name},{prenom},{result},{homonyme}  <- ALREADY HERE")
-            except :
-                print(candidat,end='\r')
-    os.system(f"echo {nombre} > nb.txt")
-    
+                    m = f"{name},{prenom},{result},{homonyme}"
+                    if m not in tableau:
+                        tableau.append(f"{name},{prenom},{result},{homonyme}")
+                        file = open("data_brevet.csv",'w')
+                        file.write("\n".join(tableau))
+                        file.close()
+                        print(f"{name},{prenom},{result},{homonyme}")
+                    else :
+                        print(f"{name},{prenom},{result},{homonyme}  <- ALREADY HERE")
+                except :
+                    print(candidat,end='\r')
+        os.system(f"echo {nombre} > nb.txt")
+    except :
+        print("SERVEUR DONE PLS WAIT")
+        time.sleep(10)
     t += 1
