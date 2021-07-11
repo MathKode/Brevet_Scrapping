@@ -41,20 +41,25 @@ mot = ''.join(final)
 print(mot)
 
 t = 0
+add = True
 while True:
-    nb = nombre[0]
-    nombre[0] = nb + 1
-    for i in nombre:
-        if len(lettre) in nombre:
-            tour = 0
-            for n in nombre:
-                if int(n) == int(len(lettre)):
-                    changement = tour
-                tour = tour + 1
-            nombre[changement] = 0
-            target = changement + 1
-            nb = nombre[target]
-            nombre[target] = int(nb) + 1
+
+    if add :
+        nb = nombre[0]
+        nombre[0] = nb + 1
+        for i in nombre:
+            if len(lettre) in nombre:
+                tour = 0
+                for n in nombre:
+                    if int(n) == int(len(lettre)):
+                        changement = tour
+                    tour = tour + 1
+                nombre[changement] = 0
+                target = changement + 1
+                nb = nombre[target]
+                nombre[target] = int(nb) + 1
+    else :
+        add = True
 
     position = 0
     total = len(nombre) - 1
@@ -110,6 +115,7 @@ while True:
                     print(candidat,end='\r')
         os.system(f"echo {nombre} > nb.txt")
     except :
-        print("SERVEUR DONE PLS WAIT")
+        print("SERVEUR DONW PLS WAIT")
+        add = False
         time.sleep(10)
     t += 1
